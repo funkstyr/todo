@@ -1,18 +1,19 @@
 import React from 'react';
+import { List, Map } from 'immutable';
 
 import Todo from './Todo';
 
-const dummyTodos = [
-  { id: 0, isDone: true, text: 'make components' },
-  { id: 1, isDone: false, text: 'design actions' },
-  { id: 2, isDone: false, text: 'implement reducer' },
-  { id: 3, isDone: false, text: 'connect components' }
-];
+const dummyTodos = List([
+  Map({ id: 0, isDone: true, text: 'make components' }),
+  Map({ id: 1, isDone: false, text: 'design actions' }),
+  Map({ id: 2, isDone: false, text: 'implement reducer' }),
+  Map({ id: 3, isDone: false, text: 'connect components' })
+]);
 
-export default ({ todos }) => {
+export default () => {
   const render = dummyTodos.map(todo => {
     return (
-      <li key={todo.id} className="todo_item">
+      <li key={todo.get('id')} className="todo_item">
         <Todo todo={todo} />
       </li>
     );
