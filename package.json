@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^1.1.0",
     "husky": "^0.14.3",
     "immutable": "^3.8.2",
     "lint-staged": "^6.0.0",
@@ -28,6 +29,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
+    "predeploy": "npm run build",
     "analyze": "source-map-explorer build/static/js/main.*",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css":
@@ -36,6 +38,7 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build && react-snapshot",
     "build": "npm-run-all build-css build-js",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
