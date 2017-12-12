@@ -1,7 +1,9 @@
 import React from 'react';
 
 export default ({ todo }) => {
-  if (todo.get('isDone')) return <strike>{todo.get('text')}</strike>;
+  const text = todo.get('text');
 
-  return <span>{todo.get('text')}</span>;
+  if (todo.get('isDone')) return <strike>{text}</strike>;
+
+  return <span>{text}</span>;
 };

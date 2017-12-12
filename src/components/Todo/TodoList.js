@@ -1,28 +1,41 @@
 import React from 'react';
-import { List, Map } from 'immutable';
+import { connect } from 'react-redux';
 
 import Todo from './Todo';
+import * as actions from '../../actions';
 
-const dummyTodos = List([
-  Map({ id: 0, isDone: true, text: 'make components' }),
-  Map({ id: 1, isDone: false, text: 'design actions' }),
-  Map({ id: 2, isDone: false, text: 'implement reducer' }),
-  Map({ id: 3, isDone: false, text: 'connect components' })
-]);
+const Todos = ({ todos, toggleTodo, addTodo }) => {
+  const renderTodos = todos.map(todo => {
+    const id = todo.get('id');
 
-export default () => {
-  const render = dummyTodos.map(todo => {
     return (
-      <li key={todo.get('id')} className="todo_item">
+      <li key={id} className="todo_item" onClick={() => toggleTodo(id)}>
         <Todo todo={todo} />
       </li>
     );
   });
 
+  const submit = ({ target, which }) => {
+    const text = target.value;
+    const isEnterKey = which === 13;
+    const isLongEnough = text.length > 4;
+
+    if (isEnterKey && isLongEnough) {
+      target.value = '';
+      addTodo(text);
+    }
+  };
+
   return (
     <div className="todo">
-      <input type="text" placeholder="Add todo" />
-      <ul className="todo_list">{render}</ul>
+      <input type="text" placeholder="Add todo" onKeyDown={submit} />
+      <ul className="todo_list">{renderTodos}</ul>
     </div>
   );
 };
+
+const mapStateToProps = ({ todos }) => {
+  return { todos };
+};
+
+export default connect(mapStateToProps, actions)(Todos);

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from '../../logo.svg';
 import './App.css';
 
 import routes from './Routes';
+import * as actions from '../../actions';
 
 class App extends Component {
   renderRoutes() {
@@ -51,4 +53,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, actions)(App);
